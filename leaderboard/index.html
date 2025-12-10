@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Classement</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input { margin: 5px 0; padding: 5px; }
+        table { border-collapse: collapse; width: 50%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h2>Ajouter un score</h2>
+    <label>Nom :</label><br>
+    <input type="text" id="nom" placeholder="Votre nom"><br>
+    <label>Score :</label><br>
+    <input type="number" id="score" placeholder="Votre score"><br>
+    <button id="envoyer">Envoyer</button>
+
+    <h2>Classement</h2>
+    <table id="leaderboard">
+        <thead>
+            <tr>
+                <th>Rang</th>
+                <th>Nom</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const envoyerBtn = document.getElementById('envoyer');
+        const nomInput = document.getElementById('nom');
+        const scoreInput = document.getElementById('score');
+        const tbody = document.querySelector('#leaderboard tbody');
+
+        function chargerLeaderboard() {
+            fetch('get_scores.php')
+                .then(response => response.json())
+                .then(data => {
+                    tbody.innerHTML = '';
+                    data.forEach((item, index) => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `<td>${index + 1}</td><td>${item.nom_joueur}</td><td>${item.score}</td>`;
+                        tbody.appendChild(tr);
+                    });
+                });
+        }
+
+        envoyerBtn.addEventListener('click', () => {
+            const nom = nomInput.value.trim();
+            const score = parseInt(scoreInput.value, 10);
+
+            if (!nom || isNaN(score)) {
+                alert('Veuillez entrer un nom et un score valides.');
+                return;
+            }
+
+            fetch('save_score.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `nom_joueur=${encodeURIComponent(nom)}&score=${encodeURIComponent(score)}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                chargerLeaderboard();
+                nomInput.value = '';
+                scoreInput.value = '';
+            })
+            .catch(err => console.error(err));
+        });
+
+        // Charger le leaderboard au démarrage
+        chargerLeaderboard();
+    </script>
+</body>
+</html>
