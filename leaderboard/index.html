@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Classement</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        input { margin: 5px 0; padding: 5px; }
-        table { border-collapse: collapse; width: 50%; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-        th { background-color: #f0f0f0; }
-    </style>
+    <link rel="stylesheet" href="style_index.css">
 </head>
 <body>
-    <h2>Ajouter un score</h2>
-    <label>Nom :</label><br>
-    <input type="text" id="nom" placeholder="Votre nom"><br>
-    <label>Score :</label><br>
-    <input type="number" id="score" placeholder="Votre score"><br>
-    <button id="envoyer">Envoyer</button>
+    <h2 id="titre">AJOUTER UN SCORE</h2>
+    <div class="flex">
+        <div id="input">
+            <label >Nom :</label><br>
+            <input type="text" id="nom" placeholder="Votre nom"><br>
+            <label>Score :</label><br>
+            <input type="number" id="score" placeholder="Votre score"><br>
+            <button id="envoyer">Envoyer</button>
+        </div>
 
-    <h2>Classement</h2>
-    <table id="leaderboard">
-        <thead>
-            <tr>
-                <th>Rang</th>
-                <th>Nom</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+        <div id="classement">
+            <h2>Classement</h2>
+        
+            <table id="leaderboard">
+                <thead>
+                    <tr>
+                        <th>Rang</th>
+                        <th>Nom</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 
+    <img src="light.gif" id="gif">
     <script>
         const envoyerBtn = document.getElementById('envoyer');
         const nomInput = document.getElementById('nom');
@@ -79,3 +81,4 @@
     </script>
 </body>
 </html>
+
