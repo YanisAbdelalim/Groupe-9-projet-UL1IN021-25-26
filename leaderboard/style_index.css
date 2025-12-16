@@ -126,6 +126,7 @@ th, td {
     font-family:'Ink free';
     color: rgb(136, 152, 164);
     text-align: center; 
+    font-size: 400%;
     width: 100%;
 }
 
@@ -133,4 +134,5 @@ th, td {
     border: hidden;
     width: 10%;
 }
+
 
