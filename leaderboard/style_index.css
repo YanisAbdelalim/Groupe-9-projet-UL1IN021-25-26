@@ -9,6 +9,7 @@ input {
     margin: 20px; 
     border: hidden;
     width: 80%;
+    padding: 10px;
 }
 
 #input {
@@ -134,5 +135,6 @@ th, td {
     border: hidden;
     width: 10%;
 }
+
 
 
