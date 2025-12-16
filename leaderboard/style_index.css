@@ -1,33 +1,46 @@
 body { 
-    font-family: verdana, sans-serif;
-    background-color: rgb(49, 55, 58);
+    font-family: 'MV Boli';
+    background-color: rgb(33, 42, 46);
 
 }
 
 input { 
-    margin: 5px 0;  
+    margin: 5px;  
     margin: 20px; 
     border: hidden;
-    font-size: 70%;
+    width: 80%;
 }
+
+#input {
+    padding: 20px;
+    margin-right: 20%;
+    border-radius: 10%;
+    border: 6px solid rgb(206, 184, 142);
+    width: 30%;
+    height: 60%;
+    font-size: 200%;
+    color: #fff;
+} 
 
 th, td { 
-    border: 1px solid #ccc; 
-    padding: 8px;  
-    
+    border: 3px solid #ccc; 
+    padding: 8px;
 }
 
-th { 
-    background-color: #f0f0f0;
-    
-}
 
 #leaderboard { 
     border-collapse: collapse; 
     width: 90%; 
     margin-top: 20px; 
     margin: 20px; 
-    align-content: right;
+}
+
+#classement {
+    align-content: center;
+    color: rgb(206, 184, 142);
+    width: 95%;
+    flex: 2;
+    text-align: center;
 }
 
 
@@ -105,38 +118,19 @@ th {
 }
 
 .flex {
-    margin-top: 100px;
+    margin-bottom: 5%;
     display: flex;
+    align-items: baseline;
 }
 #titre { 
-    font-family:Copperplate, Fantasy;
+    font-family:'Ink free';
     color: rgb(136, 152, 164);
-    font-size: 300%; 
     text-align: center; 
-    
-}
-
-#input {
-    padding: 20px;
-    border-radius: 10%;
-    width: 30%;
-    height: 60%;
-    background-color: rgb(31, 44, 53);
-    font-size: 200%;
-    font-family:Copperplate, Fantasy;
-    color: #fff;
-} 
-
-
-#classement {
-    align-content: center;
-    width: 95%;
-    flex: 2;
-    text-align: center;
+    width: 100%;
 }
 
 #gif{
     border: hidden;
-    width: 20%;
+    width: 10%;
 }
 
