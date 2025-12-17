@@ -29,6 +29,7 @@
                         <th>Rang</th>
                         <th>Nom</th>
                         <th>Score</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -50,7 +51,12 @@
                     tbody.innerHTML = '';
                     data.forEach((item, index) => {
                         const tr = document.createElement('tr');
-                        tr.innerHTML = `<td>${index + 1}</td><td>${item.nom_joueur}</td><td>${item.score}</td>`;
+                        tr.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${item.nom_joueur}</td>
+                            <td>${item.score}</td>
+                            <td>${item.date_score}</td>
+                        `;
                         tbody.appendChild(tr);
                     });
                 });
@@ -85,5 +91,6 @@
     </script>
 </body>
 </html>
+
 
 
