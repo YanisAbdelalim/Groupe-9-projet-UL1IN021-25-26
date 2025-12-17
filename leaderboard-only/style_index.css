@@ -1,0 +1,140 @@
+body { 
+    font-family: 'MV Boli';
+    background-color: rgb(33, 42, 46);
+
+}
+
+input { 
+    margin: 5px;  
+    margin: 20px; 
+    border: hidden;
+    width: 80%;
+    padding: 10px;
+}
+
+#input {
+    padding: 20px;
+    margin-right: 20%;
+    border-radius: 10%;
+    border: 6px solid rgb(206, 184, 142);
+    width: 30%;
+    height: 60%;
+    font-size: 200%;
+    color: #fff;
+} 
+
+th, td { 
+    border: 3px solid #ccc; 
+    padding: 8px;
+}
+
+
+#leaderboard { 
+    border-collapse: collapse; 
+    width: 90%; 
+    margin-top: 20px; 
+    margin: 20px; 
+}
+
+#classement {
+    align-content: center;
+    color: rgb(206, 184, 142);
+    width: 95%;
+    flex: 2;
+    text-align: center;
+}
+
+
+#envoyer {
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 1px solid rgb(132, 150, 174);
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+#envoyer:hover {
+  background: rgb(132, 150, 174);
+  box-shadow: 0 0 30px 5px rgba(13, 48, 71, 0.815);
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+#envoyer:hover::before {
+  -webkit-animation: sh02 0.5s 0s linear;
+  -moz-animation: sh02 0.5s 0s linear;
+  animation: sh02 0.5s 0s linear;
+}
+
+#envoyer::before {
+  content: '';
+  display: block;
+  width: 0px;
+  height: 86%;
+  position: absolute;
+  top: 7%;
+  left: 0%;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 50px 30px #fff;
+  -webkit-transform: skewX(-20deg);
+  -moz-transform: skewX(-20deg);
+  -ms-transform: skewX(-20deg);
+  -o-transform: skewX(-20deg);
+  transform: skewX(-20deg);
+}
+
+@keyframes sh02 {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+#envoyer:active {
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: box-shadow 0.2s ease-in;
+  -moz-transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in;
+}
+
+.flex {
+    margin-bottom: 5%;
+    display: flex;
+    align-items: baseline;
+}
+#titre { 
+    font-family:'Ink free';
+    color: rgb(136, 152, 164);
+    text-align: center; 
+    font-size: 400%;
+    width: 100%;
+}
+
+#gif{
+    border: hidden;
+    width: 10%;
+}
+
+
+

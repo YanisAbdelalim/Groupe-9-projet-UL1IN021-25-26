@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Classement</title>
+    <link rel="stylesheet" href="style_index.css">
+</head>
+<body>
+    <div class="flex">
+        <img src="light.gif" id="gif">
+        <h1 id="titre">CLASSEMENT</h1>
+    </div>
+
+    <div class="flex">
+        <div id="classement">
+            <h2>Leaderboard</h2>
+            <table id="leaderboard">
+                <thead>
+                    <tr>
+                        <th>Rang</th>
+                        <th>Nom</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const tbody = document.querySelector('#leaderboard tbody');
+
+        function chargerLeaderboard() {
+            fetch('get_scores.php')
+                .then(response => response.json())
+                .then(data => {
+                    tbody.innerHTML = '';
+                    data.forEach((item, index) => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${item.nom_joueur}</td>
+                            <td>${item.score}</td>
+                            <td>${item.date_score}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(err => console.error('Erreur lors du chargement du leaderboard :', err));
+        }
+
+        // Charger le leaderboard au chargement de la page
+        chargerLeaderboard();
+    </script>
+</body>
+</html>
+
