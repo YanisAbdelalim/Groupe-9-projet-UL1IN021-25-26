@@ -21,3 +21,4 @@ if ($nom_joueur && $score >= 0) {
 $conn->close();
 ?>
 
+
