@@ -103,6 +103,23 @@
         -moz-transition: box-shadow 0.2s ease-in;
         transition: box-shadow 0.2s ease-in;
         }
+        .image-button {
+            border: none;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            margin: 20px;
+        }
+
+        .image-button img {
+            width: 200px; /* Ajuste la taille de l'image */
+            height: auto;
+            transition: transform 0.2s;
+        }
+
+        .image-button img:hover {
+            transform: scale(1.05); /* Effet zoom au survol */
+        }
     </style>
 </head>
 <body>
@@ -111,6 +128,9 @@
     <h2>The Reaction Game</h2>
 
     <button onclick="startGame()">START</button>
+    <button class="image-button" onclick="window.location.href='http://localhost/leaderboard-only/'">   
+        <img src="classement.jpg" alt="Classement">
+    </button>
 
     <script>
         function startGame() {
@@ -120,3 +140,4 @@
 
 </body>
 </html>
+
