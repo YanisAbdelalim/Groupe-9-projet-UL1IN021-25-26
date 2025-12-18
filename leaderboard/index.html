@@ -44,6 +44,21 @@
         const scoreInput = document.getElementById('score');
         const tbody = document.querySelector('#leaderboard tbody');
 
+        (function prefillScoreFromQuery(){
+            const params = new URLSearchParams(window.location.search);
+            const gameScore = params.get('score');
+            if (gameScore !== null && gameScore !== '') {
+                scoreInput.value = parseInt(gameScore, 10) || 0;
+                scoreInput.style.display = 'none';
+                const display = document.createElement('div');
+                display.id = 'score_display';
+                display.textContent = `${scoreInput.value}`;
+                display.style = 'font-size:1.2rem; margin-top:8px; color: #e6b88e;';
+                document.getElementById('input').insertBefore(display, scoreInput.nextSibling);
+                nomInput.focus();
+            }
+        })();
+
         function chargerLeaderboard() {
             fetch('get_scores.php')
                 .then(response => response.json())
@@ -82,6 +97,8 @@
                 chargerLeaderboard();
                 nomInput.value = '';
                 scoreInput.value = '';
+                const display = document.getElementById('score_display');
+                if (display) display.remove();
             })
             .catch(err => console.error(err));
         });
@@ -89,3 +106,4 @@
     </script>
 </body>
 </html>
+
