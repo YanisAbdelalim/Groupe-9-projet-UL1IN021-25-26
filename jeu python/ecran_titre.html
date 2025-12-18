@@ -5,6 +5,16 @@
     <title>Simba - The Reaction Game</title>
 
     <style>
+        @font-face {
+            font-family: ptit_pixel; 
+            src: url(ARCADECLASSIC.TTF);
+            }
+        
+        @font-face {
+            font-family: big_pixel; 
+            src: url(ka1.ttf);
+            }
+
         body {
             margin: 0;
             height: 100vh;
@@ -14,15 +24,16 @@
             align-items: center;
             background-color: rgb(33, 42, 46);
             color: white;
-            font-family:'MV Boli';
+            font-family:'ptit_pixel';
             text-align: center;
         }
 
         h1 {
             font-size: 9rem;
+            font-family: 'big_pixel';
             margin-bottom: 0;
             letter-spacing: 2px;
-            color : rgb(226, 184, 142)
+            color : rgb(226, 184, 142);
         }
 
         h2 {
@@ -49,7 +60,7 @@
             -webkit-transition: all 0.2s ease-in;
             -moz-transition: all 0.2s ease-in;
             transition: all 0.2s ease-in;
-            ;
+            cursor: pointer;
         }
 
         button:hover {
@@ -128,9 +139,8 @@
     <h2>The Reaction Game</h2>
 
     <button onclick="startGame()">START</button>
-    <button class="image-button" onclick="window.location.href='http://localhost/leaderboard-only/'">   
-        <img src="classement.jpg" alt="Classement">
-    </button>
+    <button class="image-button" onclick="window.location.href='http://localhost/leaderboard-only/'"> 
+        Classement </button>
 
     <script>
         function startGame() {
@@ -140,4 +150,5 @@
 
 </body>
 </html>
+
 
