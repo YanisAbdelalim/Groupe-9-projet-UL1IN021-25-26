@@ -43,7 +43,7 @@ th, td {
     border-collapse: collapse; 
     width: 90%; 
     margin-top: 20px; 
-    margin: 20px; 
+    margin: 5%; 
 }
 
 #classement {
@@ -145,6 +145,7 @@ th, td {
     border: hidden;
     width: 10%;
 }
+
 
 
 
