@@ -138,13 +138,14 @@ th, td {
     color: rgb(136, 152, 164);
     text-align: center; 
     font-size: 400%;
-    width: 100%;
+    width: fit-content;
 }
 
 #gif{
     border: hidden;
     width: 10%;
 }
+
 
 
 
