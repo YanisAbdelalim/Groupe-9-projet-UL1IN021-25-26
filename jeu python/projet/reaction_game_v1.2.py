@@ -82,7 +82,7 @@ def game():
     start_time=time.time()
     now_time=0
     running = True
-    while now_time<62:  # boucle faisant tourner le jeu
+    while now_time<60:  # boucle faisant tourner le jeu
 
         now_time=time.time()-start_time
 
@@ -125,6 +125,13 @@ def send_score(score):
         pass
 
 
-send_score(game())
+final_score = game()
+send_score(final_score)
+try:
+    import webbrowser
+    webbrowser.open(f"http://localhost/leaderboard?score={final_score}")
+except:
+    pass
+
 pygame.quit()  # si on sort de la boucle while alors le programme s'arrête
 sys.exit()
