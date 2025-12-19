@@ -2,7 +2,7 @@
 $host = 'localhost';
 $db = 'jeu';
 $user = 'root';
-$pass = '';
+$pass = 'raspberry';
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) die("Erreur de connexion: " . $conn->connect_error);
@@ -24,5 +24,6 @@ echo json_encode($scores);
 
 $conn->close();
 ?>
+
 
 
