@@ -1,4 +1,4 @@
-- COMMENT INSTALLER LE JEU -
+- COMMENT INSTALLER LE JEU
 1) Télécharger et extraire le code du projet
 2) Faire tourner LAMP sur le Raspberry. Placer les dossiers "leaderboard" et "leaderboard-only" dans le dossier "var/www/html"
 3) Ouvrir sur un navigateur la page "http://localhost/phpmyadmin", éxécuter les commandes situées dans le fichier "commandes_sql.txt" dans le dossier leaderboard
