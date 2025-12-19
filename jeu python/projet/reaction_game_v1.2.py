@@ -16,6 +16,8 @@ touch = {
     }
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setup(12, GPIO.OUT)
+p=GPIO.PWM(12,100)
 for pin in pins.values():
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, 0)
@@ -78,6 +80,8 @@ def controls(event,score): #verifie si on a touché une lumière allumée ou non
         nb = random.choice([3,4,5])
         grid.cells[nb][2] = "col1ON"
         led_on(nb)
+        p.ChangeFrequency(440)
+        p.start(5)
         return 1
     elif event == pygame.K_d and grid.cells[3][2]=="col1ON":
         grid.cells[3][2]="col1"
@@ -85,6 +89,8 @@ def controls(event,score): #verifie si on a touché une lumière allumée ou non
         nb = random.choice([2, 4, 5])
         grid.cells[nb][2] = "col1ON"
         led_on(nb)
+        p.ChangeFrequency(440)
+        p.start(5)
         return 1
     elif event == pygame.K_f and grid.cells[4][2]=="col1ON":
         grid.cells[4][2]="col1"
@@ -92,6 +98,8 @@ def controls(event,score): #verifie si on a touché une lumière allumée ou non
         nb = random.choice([2, 3, 5])
         grid.cells[nb][2] = "col1ON"
         led_on(nb)
+        p.ChangeFrequency(440)
+        p.start(5)
         return 1
     elif event == pygame.K_g and grid.cells[5][2]=="col1ON":
         grid.cells[5][2]="col1"
@@ -99,9 +107,12 @@ def controls(event,score): #verifie si on a touché une lumière allumée ou non
         nb = random.choice([2, 3, 4])
         grid.cells[nb][2] = "col1ON"
         led_on(nb)
-        
+        p.ChangeFrequency(440)
+        p.start(5)
         return 1
     else:
+        p.ChangeFrequency(200)
+        p.start(5)
         return -1
 
 
@@ -122,6 +133,7 @@ def game():
     frames=0 #compteur de frames
     score = 0 #compteur de score
     start_time=time.time() 
+    bip_frame=-5
     now_time=0
     
     while now_time<60:  # boucle faisant tourner le jeu
@@ -134,6 +146,9 @@ def game():
             nb=random.randint(2,5)
             grid.cells[nb][2]="col1ON"
 
+        if frames-bip_frame==12:
+            p.stop()
+        
         screen.fill((0, 0, 0))  # rafraichissement de l'écran
         score_text = font.render(f"Score : {score}", True, (255, 255, 255))
         timer_text = font.render(f"Temps : {60-(frames//60)}s", True, (255, 255, 255))
@@ -144,6 +159,7 @@ def game():
 
         for pin,key in touch.items(): 
             if GPIO.input(pin) == 1 and touch_state[pin]==0:
+                bip_frame = frames
                 score += controls(key, score)
             touch_state[pin] = GPIO.input(pin) #ca check si le touch été déja appuyé avant pour éviter de le recompter.
         
@@ -154,12 +170,14 @@ def game():
                 now_time = 100  # alors on sort de la boucle while et on arrête ainsi le jeu
 
             if event.type == pygame.KEYDOWN: #si on clique sur une touche, on joue
+                bip_frame = frames
                 score+=controls(event.key,score)
 
-        clock.tick(60)  # on rafraichi l'écran (on fait toutes les actions présentes dans la boucle while 60 fois par seconde)
+        clock.tick(60)  # on rafraichit l'écran (on fait toutes les actions présentes dans la boucle while 60 fois par seconde)
 
         pygame.display.update()  # on actualise l'écran
     running=False
+    p.stop()
     leds_off_all()
     return score  # on affiche alors le score
 
