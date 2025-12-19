@@ -3,6 +3,39 @@ import random
 import time
 import sys
 import requests
+import RPi.GPIO as GPIO
+pins = {
+    2: 22,  #numéro du pin de la led en fonction de la case d jeu qui correspond
+    3: 5,
+    4: 16,
+    5: 18  
+}
+touch = {
+    24: pygame.K_f, #associe aux touches du clavier les touch sensor correspondants.
+    26: pygame.K_g
+    }
+
+GPIO.setmode(GPIO.BCM)
+for pin in pins.values():
+    GPIO.setup(pin, GPIO.OUT)
+    GPIO.output(pin, 0)
+for pin in touch:
+    GPIO.setup(pin,GPIO.IN)
+    
+touch_state={
+    24: 0, # permet de faire en sorte qu'un appui sur un touch compte pour une seule itération.
+    26: 0
+    }
+
+
+def led_on(col):
+    GPIO.output(pins[col], 1)
+def led_off(col):
+    GPIO.output(pins[col], 0)
+
+def leds_off_all():
+    for pin in pins.values():
+        GPIO.output(pin, 0)
 
 
 pygame.init()
@@ -41,23 +74,32 @@ class Grid:  # création de la grille de jeu et de ses méthodes
 def controls(event,score):
     if event == pygame.K_s and grid.cells[2][2]=="col1ON":
         grid.cells[2][2]="col1"
+        led_off(2)
         nb = random.choice([3,4,5])
         grid.cells[nb][2] = "col1ON"
+        led_on(nb)
         return 1
     elif event == pygame.K_d and grid.cells[3][2]=="col1ON":
         grid.cells[3][2]="col1"
+        led_off(3)
         nb = random.choice([2, 4, 5])
         grid.cells[nb][2] = "col1ON"
+        led_on(nb)
         return 1
     elif event == pygame.K_f and grid.cells[4][2]=="col1ON":
         grid.cells[4][2]="col1"
+        led_off(4)
         nb = random.choice([2, 3, 5])
         grid.cells[nb][2] = "col1ON"
+        led_on(nb)
         return 1
     elif event == pygame.K_g and grid.cells[5][2]=="col1ON":
+        grid.cells[5][2]="col1"
+        led_off(5)
         nb = random.choice([2, 3, 4])
         grid.cells[nb][2] = "col1ON"
-        grid.cells[5][2]="col1"
+        led_on(nb)
+        
         return 1
     else:
         return -1
@@ -100,6 +142,12 @@ def game():
 
         grid.draw()
 
+        for pin,key in touch.items():
+            if GPIO.input(pin) == 1 and touch_state[pin]==0:
+                score += controls(key, score)
+            touch_state[pin] = GPIO.input(pin) #ca check si le touch été déja appuyé avant pour éviter de le recompter.
+        
+        
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:  # si on ferme la fenêtre de jeu
