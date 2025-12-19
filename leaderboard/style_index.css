@@ -1,5 +1,16 @@
+@font-face {
+  font-family: pixel; 
+  src: url(ka1.ttf);
+}
+
+@font-face {
+        font-family: ptit_pixel; 
+        src: url(ARCADECLASSIC.TTF);
+}
+
 body { 
-    font-family: 'MV Boli';
+    font-family: 'ptit_pixel';
+    letter-spacing: 2px;
     background-color: rgb(33, 42, 46);
 
 }
@@ -124,7 +135,7 @@ th, td {
     align-items: baseline;
 }
 #titre { 
-    font-family:'Ink free';
+    font-family:'pixel';
     color: rgb(136, 152, 164);
     text-align: center; 
     font-size: 400%;
@@ -135,6 +146,3 @@ th, td {
     border: hidden;
     width: 10%;
 }
-
-
-
