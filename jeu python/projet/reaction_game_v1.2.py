@@ -160,7 +160,7 @@ def game():
 
         pygame.display.update()  # on actualise l'écran
     running=False
-
+    leds_off_all()
     return score  # on affiche alors le score
 
 def send_score(score): #fonction pour envoyer le code au site
