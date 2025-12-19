@@ -38,10 +38,10 @@ def leds_off_all():
         GPIO.output(pin, 0)
 
 
-pygame.init()
+pygame.init()# initialise la fenêtre de jeu pygame
 clock=pygame.time.Clock() #raccourci pour le module time qu'on utilise plus bas
-font = pygame.font.SysFont('Copperplate', 36)
-running=False
+font = pygame.font.SysFont('Copperplate', 36) #initialise une police d'écriture
+
 
 class Grid:  # création de la grille de jeu et de ses méthodes
 
@@ -55,12 +55,12 @@ class Grid:  # création de la grille de jeu et de ses méthodes
 
 
     def state(self, x: int, y: int, state):  # méthode pour changer l'état d'une case
-        if state == "col1":
+        if state == "col1": #état éteint (rouge obscur)
             self.cells[x][y] = "col1"
         elif state == "col1ON":
-            self.cells[x][y] = "col1ON"
+            self.cells[x][y] = "col1ON" #état allumé (rouge vif)
         else:
-            self.cells[x][y] = "null"
+            self.cells[x][y] = "null" #état rien (couleur noire)
 
 
     def draw(self):  # méthode d'affichage des cellules sur l'écran de jeu
@@ -71,7 +71,7 @@ class Grid:  # création de la grille de jeu et de ses méthodes
                 elif self.cells[x][y] == "col1ON":
                     pygame.draw.rect(screen, (255,100,130), (x * self.scale, y * self.scale, self.scale, self.scale))
 
-def controls(event,score):
+def controls(event,score): #verifie si on a touché une lumière allumée ou non, si oui elle augmente le score et en allume une autre, si non elle baisse le score
     if event == pygame.K_s and grid.cells[2][2]=="col1ON":
         grid.cells[2][2]="col1"
         led_off(2)
@@ -106,31 +106,31 @@ def controls(event,score):
 
 
 
-grid = Grid()
+grid = Grid() #création de la matrice de cellules
 
-grid.state(5, 2, "col1")
+grid.state(5, 2, "col1")  #initialisation des cellules
 grid.state(2, 2, "col1")
 grid.state(3, 2, "col1")
 grid.state(4, 2, "col1")
 
 screen = pygame.display.set_mode((grid.width, grid.height))  # initialisation de la fenêtre de jeu
-pygame.display.set_caption("THE REACTION GAME")
+pygame.display.set_caption("THE REACTION GAME") #titre
 
 
 def game():
-    global running
+    
     frames=0 #compteur de frames
     score = 0 #compteur de score
-    start_time=time.time()
+    start_time=time.time() 
     now_time=0
-    running = True
+    
     while now_time<60:  # boucle faisant tourner le jeu
 
-        now_time=time.time()-start_time
+        now_time=time.time()-start_time # variable contenant le temps depuis le début du jeu
 
-        frames += 1
+        frames += 1 #compteur de frames
 
-        if frames==120:
+        if frames==120: #le jeu débute au bout de 2 secondes
             nb=random.randint(2,5)
             grid.cells[nb][2]="col1ON"
 
@@ -142,18 +142,18 @@ def game():
 
         grid.draw()
 
-        for pin,key in touch.items():
+        for pin,key in touch.items(): 
             if GPIO.input(pin) == 1 and touch_state[pin]==0:
                 score += controls(key, score)
             touch_state[pin] = GPIO.input(pin) #ca check si le touch été déja appuyé avant pour éviter de le recompter.
         
         
-        for event in pygame.event.get():
+        for event in pygame.event.get(): #methode de vérification des inputs
 
             if event.type == pygame.QUIT:  # si on ferme la fenêtre de jeu
                 now_time = 100  # alors on sort de la boucle while et on arrête ainsi le jeu
 
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN: #si on clique sur une touche, on joue
                 score+=controls(event.key,score)
 
         clock.tick(60)  # on rafraichi l'écran (on fait toutes les actions présentes dans la boucle while 60 fois par seconde)
@@ -163,7 +163,7 @@ def game():
 
     return score  # on affiche alors le score
 
-def send_score(score):
+def send_score(score): #fonction pour envoyer le code au site
     try:
         requests.post(
             "http://127.0.0.1:5000/score",
@@ -173,13 +173,13 @@ def send_score(score):
         pass
 
 
-final_score = game()
-send_score(final_score)
+final_score = game() # lance le jeu et lance le score 
+send_score(final_score) # envoie le score final
 try:
     import webbrowser
-    webbrowser.open(f"http://localhost/leaderboard?score={final_score}")
+    webbrowser.open(f"http://localhost/leaderboard?score={final_score}") #ouvre la page du leaderboard
 except:
     pass
 
 pygame.quit()  # si on sort de la boucle while alors le programme s'arrête
-sys.exit()
+sys.exit() #le script python s'arrête
